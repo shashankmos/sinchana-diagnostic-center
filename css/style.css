@@ -1,0 +1,345 @@
+/* Base styling */
+body {
+  padding-top: 70px;
+  /* Offset for fixed navbar */
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+}
+
+section {
+  scroll-margin-top: 70px;
+}
+
+/* Navbar override (optional tweak for smaller screens) */
+.navbar-brand {
+  font-size: 1rem;
+}
+
+/* .navbar {
+  background: linear-gradient(135deg, #5c2d91, #b06ce3);
+} */
+
+/* Hero Section */
+.hero-section {
+  height: 60vh;
+  background: url('../assets/images/main_lab_banner.png') no-repeat center center;
+  background-size: cover;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+/* About section image */
+#about img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* ------------------------------
+   Health Concerns Section Styles
+------------------------------ */
+
+/* Section Container */
+.category-box {
+  background: linear-gradient(135deg, #5c2d91, #b06ce3);
+  border-radius: 24px;
+  color: white;
+  padding: 2rem;
+}
+
+/* Heading & Button */
+.category-box h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.category-box .btn {
+  background-color: white;
+  color: #5c2d91;
+  font-weight: 600;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.category-box .btn:hover {
+  background-color: #f0e8ff;
+}
+
+/* Card Layout */
+.category-card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 1rem 0.5rem;
+  /* ⬅️ compact card */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Icon (BIGGER!) */
+.category-card img.category-icon {
+  width: 96px;
+  /* ⬅️ enlarged icon */
+  height: 96px;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+
+/* Text */
+.category-card p {
+  color: #5c2d91;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+
+  .hero-section {
+    height: 30vh;
+    background: url('../assets/images/main_lab_banner.png') no-repeat center center;
+    background-size: cover;
+    color: #ffffff;
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .category-box {
+    padding: 1.25rem;
+  }
+
+  .category-card {
+    min-height: 120px;
+    padding: 1rem 0.5rem;
+  }
+
+  .category-card img.category-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px;
+  }
+
+  .category-card p {
+    font-size: 0.9rem;
+  }
+}
+
+
+.selectable-card:hover {
+  background-color: #f8f9fa;
+}
+
+.text-purple {
+  color: #5c2d91;
+}
+
+.category-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.category-card img {
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.category-card p {
+  margin: 0;
+  font-weight: 500;
+  color: #5c2d91;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.category-card.dull {
+  opacity: 0.85;
+  background-color: #fdfdfd;
+}
+
+.category-card.active {
+  opacity: 1;
+  background-color: white;
+  border: 2px solid #5c2d91;
+}
+
+#backToGrid {
+  background-color: #5c2d91;
+  border: 2px solid #5c2d91;
+  color: #fff;
+  font-weight: bold;
+}
+
+#backToGrid:hover {
+  background-color: #b06ce3;
+  color: #fff;
+  border: 2px solid #5c2d91;
+}
+
+.test-dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+
+.text-purple {
+  color: #5c2d91;
+}
+
+.bg-light-purple {
+  background-color: #b18cf1;
+}
+
+footer a:hover {
+  text-decoration: none;
+  color: #ffe082;
+}
+
+.send-msg {
+  background-color: #5c2d91;
+  color: #fff;
+  border: 2px solid #5c2d91;
+}
+
+.send-msg:hover {
+  background-color: #b06ce3;
+  color: #fff;
+  border: 2px solid #5c2d91;
+}
+
+#testDetailsFlexBox {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: calc(100vh - 180px);
+}
+
+.scroll-box {
+  height: calc(100vh - 180px);
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+
+.category-card2 {
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.category-card2.active {
+  border-color: #007bff;
+  background-color: #fff;
+  color: #007bff;
+  font-weight: bold;
+}
+
+
+@media (min-width: 768px) {
+
+  /* Right-side test cards compact */
+  #subTestsList .test-card {
+    max-width: 70%;
+    padding: 1rem;
+  }
+
+  /* Increase image size in left category cards */
+  .category-card2 img {
+    width: 60px;
+    height: 60px;
+  }
+   .fw-bold{
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .category-card2 {
+    height: 100px;
+    font-size: 12px;
+    /* Reduce text size */
+    padding: 8px;
+    /* Optional: reduce padding */
+    text-align: center;
+  }
+
+  .category-card2 img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .category-card2 p {
+    font-size: 12px;
+    /* Ensures <p> tag text is also smaller */
+    margin-bottom: 0;
+    /* Optional: tighten spacing */
+  }
+}
+
+@media (max-width: 767px) {
+  .test-card {
+    padding: 10px;
+    font-size: 13px;
+    /* Smaller text for all children unless overridden */
+  }
+
+  .test-card h6 {
+    font-size: 14px;
+  }
+  .fw-bold{
+    font-size: 16px;
+  }
+
+  .test-card p {
+    font-size: 12px;
+    margin-bottom: 4px;
+    /* Optional: reduce spacing */
+  }
+
+  .test-card img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+}
