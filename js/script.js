@@ -1,4 +1,13 @@
-window.addEventListener('DOMContentLoaded', function () {
+/* ============================================
+   SINCHANA HI-TECH DIAGNOSTIC CENTER
+   Premium Lab Website — Main Script
+   ============================================ */
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  // ========================================
+  // DATA: Health Concerns
+  // ========================================
   const healthConcerns = [
     { name: "FEVER", icon: "assets/icons/fever.png" },
     { name: "DIABETES", icon: "assets/icons/diabetes.png" },
@@ -23,41 +32,21 @@ window.addEventListener('DOMContentLoaded', function () {
     { name: "SPERM TESTING", icon: "assets/icons/sperm_testing.png" },
   ];
 
-  const grid = document.getElementById('concernGrid');
-  if (!grid) return;
-
-  healthConcerns.forEach((item, index) => {
-    const col = document.createElement('div');
-    col.className = 'col';
-    col.innerHTML = `
-    <div class="category-card" style="cursor: pointer;">
-      <img src="${item.icon}" alt="${item.name} icon" class="category-icon" onerror="this.style.display='none'" />
-      <p>${item.name}</p>
-    </div>
-  `;
-
-    // 👉 Update to use index
-    col.querySelector('.category-card').addEventListener('click', () => {
-      openConcernModal(index); // instead of showConcernModal
-    });
-
-    grid.appendChild(col);
-  });
-
-
-
+  // ========================================
+  // DATA: Sub-tests Map (Name → Tests)
+  // ========================================
   const subTestsMap = {
     "FEVER": [
       { name: "Complete Blood Count (CBC)", price: "Rs. 300", reportTime: "30 Minutes" },
       { name: "Widal Test (Typhoid)", price: "Rs. 150", reportTime: "20 Minutes" },
-      { name: "Dengue (NS1,IgM,IgG)", price: "Rs. 500", reportTime: "30 Minutes" },
+      { name: "Dengue (NS1, IgM, IgG)", price: "Rs. 500", reportTime: "30 Minutes" },
       { name: "Rapid Malaria", price: "Rs. 300", reportTime: "30 Minutes" },
       { name: "Chikungunya", price: "Rs. 700", reportTime: "30 Minutes" },
       { name: "Weil-Felix", price: "Rs. 900", reportTime: "30 Minutes" }
     ],
     "DIABETES": [
       { name: "HbA1c", price: "Rs. 600", reportTime: "1 hour" },
-      { name: "FBS/PPBS", price: "Rs. 100", reportTime: "1 hour" },
+      { name: "FBS / PPBS", price: "Rs. 100", reportTime: "1 hour" },
       { name: "Random Blood Sugar (RBS)", price: "Rs. 50", reportTime: "30 Minutes" }
     ],
     "KIDNEYS": [
@@ -71,28 +60,28 @@ window.addEventListener('DOMContentLoaded', function () {
       { name: "Total Bilirubin", price: "Rs. 120", reportTime: "30 Minutes" },
       { name: "Direct Bilirubin", price: "Rs. 100", reportTime: "30 Minutes" },
       { name: "Indirect Bilirubin", price: "Rs. 100", reportTime: "30 Minutes" },
-      { name: "Total Protiens", price: "Rs. 120", reportTime: "30 Minutes" },
+      { name: "Total Proteins", price: "Rs. 120", reportTime: "30 Minutes" },
       { name: "Albumin", price: "Rs. 120", reportTime: "30 Minutes" },
       { name: "Globulins", price: "Rs. 100", reportTime: "30 Minutes" },
       { name: "Albumin Globulin Ratio", price: "Rs. 100", reportTime: "30 Minutes" },
       { name: "S.G.O.T", price: "Rs. 100", reportTime: "30 Minutes" },
       { name: "S.G.P.T", price: "Rs. 100", reportTime: "30 Minutes" },
-      { name: "Alkaline Phosahatase (ALP)", price: "Rs. 100", reportTime: "30 Minutes" },
+      { name: "Alkaline Phosphatase (ALP)", price: "Rs. 100", reportTime: "30 Minutes" },
       { name: "Gamma-Glutamyl Transferase (GGT)", price: "Rs. 500", reportTime: "1 hour" }
     ],
     "THYROID": [
-      { name: "TSH/T3/T4", price: "Rs. 450", reportTime: "2 hours" },
-      { name: "FP3/FP4/PSH", price: "Rs. 1200", reportTime: "3 hours" },
+      { name: "TSH / T3 / T4", price: "Rs. 450", reportTime: "2 hours" },
+      { name: "FP3 / FP4 / PSH", price: "Rs. 1200", reportTime: "3 hours" },
       { name: "TSH", price: "Rs. 300", reportTime: "2 hours" }
     ],
     "HEART CHECK": [
       { name: "ECG", price: "Rs. 250", reportTime: "10 Minutes" },
       { name: "Troponin I", price: "Rs. 800", reportTime: "2 hours" },
       { name: "Troponin P", price: "Rs. 1200", reportTime: "1 day" },
-      { name: "Serum CK-NAC", price: "Rs. 800", reportTime: "same day" },
-      { name: "Serum CK-MB", price: "Rs. 800", reportTime: "same day" },
-      { name: "Lipid Profile", price: "Rs. 450", reportTime: "1 hour" },
-    ],//done
+      { name: "Serum CK-NAC", price: "Rs. 800", reportTime: "Same day" },
+      { name: "Serum CK-MB", price: "Rs. 800", reportTime: "Same day" },
+      { name: "Lipid Profile", price: "Rs. 450", reportTime: "1 hour" }
+    ],
     "VITAMIN PROFILE": [
       { name: "Vitamin D3", price: "Rs. 900", reportTime: "6 hours" },
       { name: "Vitamin B12", price: "Rs. 850", reportTime: "6 hours" }
@@ -124,7 +113,7 @@ window.addEventListener('DOMContentLoaded', function () {
       { name: "Rapid Antigen Test", price: "Rs. 300", reportTime: "1 hour" }
     ],
     "SEROLOGY TESTING": [
-      { name: "HIV 1&2", price: "Rs. 400", reportTime: "24 hours" },
+      { name: "HIV 1 & 2", price: "Rs. 400", reportTime: "24 hours" },
       { name: "HCV", price: "Rs. 500", reportTime: "24 hours" }
     ],
     "CULTURE AND SENSITIVITY TEST": [
@@ -157,183 +146,332 @@ window.addEventListener('DOMContentLoaded', function () {
     ]
   };
 
-  document.querySelector('#viewAllDetailsBtn').addEventListener('click', () => {
-    // Hide all other sections
-    document.querySelectorAll('section:not(#allDetailsContainer)').forEach(section => {
-      section.classList.add('d-none');
-    });
+  // ========================================
+  // NAVBAR: Scroll effect + Mobile toggle
+  // ========================================
+  const navbar = document.querySelector('.site-navbar');
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  const mobileOverlay = document.querySelector('.mobile-overlay');
 
-    // Show the allDetails section
-    const container = document.getElementById('allDetailsContainer');
-    container.classList.remove('d-none');
-    container.scrollIntoView({ behavior: 'smooth' });
-
-    // Reset UI areas
-    const sidebar = document.getElementById('concernSidebar');
-    const subTestsList = document.getElementById('subTestsList');
-    const title = document.getElementById('selectedCategoryTitle');
-
-    sidebar.innerHTML = '';
-    subTestsList.innerHTML = '';
-    title.innerText = 'Select a test';
-
-    // Build sidebar list
-    healthConcerns.forEach((item, index) => {
-      const card = document.createElement('div');
-      card.className = 'category-card2 text-center cursor-pointer';
-      card.style.cursor = 'pointer';
-      card.innerHTML = `
-      <img src="${item.icon}" alt="${item.name}" onerror="this.style.display='none'" />
-      <p class="mb-0 fw-semibold">${item.name}</p>
-    `;
-
-      // Click handler for each health concern
-      card.addEventListener('click', () => {
-        // Remove active class from all
-        document.querySelectorAll('#concernSidebar .category-card2').forEach(c => {
-          c.classList.remove('active');
-        });
-
-        // Activate the clicked one
-        card.classList.add('active');
-
-        // Load sub-tests
-        const tests = subTestsMap[item.name] || [];
-        subTestsList.innerHTML = '';
-        title.innerText = `Tests related to ${item.name}`;
-
-        if (tests.length === 0) {
-          subTestsList.innerHTML = `<p class="text-muted">No sub-tests available for ${item.name}.</p>`;
-        } else {
-          tests.forEach(test => {
-            const testCard = document.createElement('div');
-            testCard.className = 'test-card p-3 border rounded bg-white shadow-sm';
-            testCard.innerHTML = `
-            <h6 class="fw-semibold text-purple">${test.name}</h6>
-            <p class="mb-1"><strong>Price:</strong> ${test.price}</p>
-            <p class="mb-0"><strong>Report in:</strong> ${test.reportTime}</p>
-          `;
-            subTestsList.appendChild(testCard);
-          });
-        }
-      });
-
-      sidebar.appendChild(card);
-
-      // Auto-select first
-      if (index === 0) card.click();
-    });
+  // Scroll effect
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
   });
 
-  // Back button
-  document.getElementById('backToGrid').addEventListener('click', () => {
-    document.querySelectorAll('section').forEach(section => {
-      if (section.id !== 'allDetailsContainer') {
-        section.classList.remove('d-none');
-      }
+  // Hamburger toggle
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+      if (mobileOverlay) mobileOverlay.classList.toggle('active');
     });
-    document.getElementById('allDetailsContainer').classList.add('d-none');
-  });
-
-
-  let currentConcernIndex = 0;
-  const modal = new bootstrap.Modal(document.getElementById('testModal'));
-
-  function openConcernModal(index) {
-    currentConcernIndex = index;
-    updateConcernModalContent(index);
-
-    // Safe show + focus
-    setTimeout(() => {
-      modal.show();
-
-      // Set focus to prevent aria-hidden warning
-      setTimeout(() => {
-        document.getElementById('modalName')?.focus();
-      }, 300);
-    }, 50);
   }
 
+  // Close mobile nav on overlay click
+  if (mobileOverlay) {
+    mobileOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('open');
+      mobileOverlay.classList.remove('active');
+    });
+  }
 
-  function updateConcernModalContent(index) {
+  // Nav link clicks: smooth scroll + close mobile
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+
+      // Close mobile menu
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('open');
+      if (mobileOverlay) mobileOverlay.classList.remove('active');
+
+      // If we are in "all tests" view, go back first
+      const allTestsSection = document.getElementById('allTestsSection');
+      if (allTestsSection && !allTestsSection.classList.contains('hidden')) {
+        allTestsSection.classList.add('hidden');
+        document.querySelectorAll('section.main-section').forEach(s => s.classList.remove('hidden'));
+      }
+
+      // Smooth scroll
+      const target = document.querySelector(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // Update active state
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  // ========================================
+  // SCROLL SPY: Highlight active nav link
+  // ========================================
+  const sections = document.querySelectorAll('section.main-section[id]');
+  const navLinksList = document.querySelectorAll('.nav-links a[href^="#"]');
+
+  function updateActiveNav() {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 120;
+      if (window.scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinksList.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav);
+
+  // ========================================
+  // ANIMATED COUNTERS
+  // ========================================
+  function animateCounter(element, target, suffix = '') {
+    let current = 0;
+    const increment = target / 60;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      element.textContent = Math.floor(current).toLocaleString() + suffix;
+    }, 25);
+  }
+
+  const statsSection = document.querySelector('.stats-section');
+  let statsAnimated = false;
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !statsAnimated) {
+        statsAnimated = true;
+        document.querySelectorAll('.stat-number').forEach(el => {
+          const target = parseInt(el.dataset.target);
+          const suffix = el.dataset.suffix || '';
+          animateCounter(el, target, suffix);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  if (statsSection) statsObserver.observe(statsSection);
+
+  // ========================================
+  // FADE IN ON SCROLL (Intersection Observer)
+  // ========================================
+  const fadeElements = document.querySelectorAll('.fade-in-up');
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  fadeElements.forEach(el => fadeObserver.observe(el));
+
+  // ========================================
+  // HEALTH CONCERNS GRID
+  // ========================================
+  const concernGrid = document.getElementById('concernGrid');
+  if (concernGrid) {
+    healthConcerns.forEach((item, index) => {
+      const card = document.createElement('div');
+      card.className = 'concern-card';
+      card.innerHTML = `
+        <img src="${item.icon}" alt="${item.name}" onerror="this.style.display='none'" />
+        <p>${item.name}</p>
+      `;
+      card.addEventListener('click', () => openModal(index));
+      concernGrid.appendChild(card);
+    });
+  }
+
+  // ========================================
+  // MODAL SYSTEM
+  // ========================================
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalContainer = document.getElementById('modalContainer');
+  const modalIcon = document.getElementById('modalIcon');
+  const modalName = document.getElementById('modalName');
+  const modalTestsTitle = document.getElementById('modalTestsTitle');
+  const modalTestsList = document.getElementById('modalTestsList');
+  const modalClose = document.getElementById('modalClose');
+  const prevBtn = document.getElementById('prevConcernBtn');
+  const nextBtn = document.getElementById('nextConcernBtn');
+  let currentIndex = 0;
+
+  function openModal(index) {
+    currentIndex = index;
+    renderModal(index);
+    modalBackdrop.classList.add('active');
+    modalContainer.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modalBackdrop.classList.remove('active');
+    modalContainer.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function renderModal(index) {
     const item = healthConcerns[index];
-    const name = document.getElementById('modalName');
-    const icon = document.getElementById('modalIcon');
-    const list = document.getElementById('modalTestsList');
-    const title = document.getElementById('modalTitle');
-
-    title.innerText = `Tests for ${item.name}`;
-    name.innerText = item.name;
-    icon.src = item.icon;
-
-    list.innerHTML = '';
     const tests = subTestsMap[item.name] || [];
 
+    modalIcon.src = item.icon;
+    modalIcon.alt = item.name;
+    modalName.textContent = item.name;
+    modalTestsTitle.textContent = `Tests for ${item.name}`;
+
+    modalTestsList.innerHTML = '';
+
     if (tests.length === 0) {
-      list.innerHTML = '<p class="text-muted">No tests available.</p>';
+      modalTestsList.innerHTML = '<p style="color: #6c757d; padding: 1rem;">No tests available for this category.</p>';
     } else {
       tests.forEach(test => {
         const div = document.createElement('div');
-        div.className = 'border rounded shadow-sm p-3 bg-light mb-2';
+        div.className = 'modal-test-item';
         div.innerHTML = `
-        <h6 class="fw-semibold text-purple">${test.name}</h6>
-        <p class="mb-1"><strong>Price:</strong> ${test.price}</p>
-        <p class="mb-0"><strong>Report in</strong> ${test.reportTime}</p>
-      `;
-        list.appendChild(div);
+          <h5>${test.name}</h5>
+          <div class="modal-test-meta">
+            <span class="price-tag">${test.price}</span>
+            <span class="time-tag">⏱ ${test.reportTime}</span>
+          </div>
+        `;
+        modalTestsList.appendChild(div);
       });
     }
 
-    // Toggle arrows
-    document.getElementById('prevConcernBtn').style.display = (index > 0) ? 'block' : 'none';
-    document.getElementById('nextConcernBtn').style.display = (index < healthConcerns.length - 1) ? 'block' : 'none';
+    // Arrow visibility
+    prevBtn.disabled = (index <= 0);
+    nextBtn.disabled = (index >= healthConcerns.length - 1);
+    prevBtn.style.visibility = (index <= 0) ? 'hidden' : 'visible';
+    nextBtn.style.visibility = (index >= healthConcerns.length - 1) ? 'hidden' : 'visible';
   }
-  document.getElementById('prevConcernBtn').addEventListener('click', () => {
-    if (currentConcernIndex > 0) {
-      currentConcernIndex--;
-      updateConcernModalContent(currentConcernIndex);
-    }
-  });
 
-  document.getElementById('nextConcernBtn').addEventListener('click', () => {
-    if (currentConcernIndex < healthConcerns.length - 1) {
-      currentConcernIndex++;
-      updateConcernModalContent(currentConcernIndex);
-    }
-  });
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
 
-
-  document.querySelectorAll('.navbar a.nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const targetId = link.getAttribute('href');
-
-      if (targetId && targetId.startsWith('#')) {
-        e.preventDefault(); // Prevent default jump
-
-        // ✅ Hide #allDetailsContainer only if visible
-        const allDetails = document.getElementById('allDetailsContainer');
-        if (allDetails && !allDetails.classList.contains('d-none')) {
-          allDetails.classList.add('d-none');
-        }
-
-        // ✅ Show all other sections
-        document.querySelectorAll('section').forEach(section => {
-          section.classList.remove('d-none');
-        });
-
-        // ✅ Smooth scroll to the target section
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // ✅ Collapse navbar if open (for mobile)
-        const navbarCollapse = document.getElementById('mainNavbar');
-        if (navbarCollapse.classList.contains('show')) {
-          new bootstrap.Collapse(navbarCollapse).toggle();
-        }
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderModal(currentIndex);
       }
     });
-  });
-});
+  }
 
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < healthConcerns.length - 1) {
+        currentIndex++;
+        renderModal(currentIndex);
+      }
+    });
+  }
+
+  // Close modal on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ========================================
+  // VIEW ALL TESTS: Sidebar + Detail Panel
+  // ========================================
+  const viewAllBtn = document.getElementById('viewAllBtn');
+  const backBtn = document.getElementById('backBtn');
+  const allTestsSection = document.getElementById('allTestsSection');
+  const concernSidebar = document.getElementById('concernSidebar');
+  const subTestsList = document.getElementById('subTestsList');
+  const detailTitle = document.getElementById('detailTitle');
+
+  if (viewAllBtn) {
+    viewAllBtn.addEventListener('click', () => {
+      // Hide all main sections
+      document.querySelectorAll('section.main-section').forEach(s => s.classList.add('hidden'));
+      // Show all tests section
+      allTestsSection.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Build sidebar
+      concernSidebar.innerHTML = '';
+      healthConcerns.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'sidebar-card';
+        card.innerHTML = `
+          <img src="${item.icon}" alt="${item.name}" onerror="this.style.display='none'" />
+          <p>${item.name}</p>
+        `;
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.sidebar-card').forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          renderDetailPanel(item.name);
+        });
+        concernSidebar.appendChild(card);
+
+        // Auto-select first
+        if (index === 0) {
+          card.classList.add('active');
+          renderDetailPanel(item.name);
+        }
+      });
+    });
+  }
+
+  function renderDetailPanel(concernName) {
+    const tests = subTestsMap[concernName] || [];
+    detailTitle.textContent = `Tests for ${concernName}`;
+    subTestsList.innerHTML = '';
+
+    if (tests.length === 0) {
+      subTestsList.innerHTML = '<p style="color: #6c757d;">No tests available.</p>';
+      return;
+    }
+
+    tests.forEach(test => {
+      const card = document.createElement('div');
+      card.className = 'test-detail-card';
+      card.innerHTML = `
+        <h4>${test.name}</h4>
+        <div class="test-meta">
+          <span class="test-price">${test.price}</span>
+          <span class="test-time">⏱ ${test.reportTime}</span>
+        </div>
+      `;
+      subTestsList.appendChild(card);
+    });
+  }
+
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      allTestsSection.classList.add('hidden');
+      document.querySelectorAll('section.main-section').forEach(s => s.classList.remove('hidden'));
+      // Scroll back to tests section
+      const testsSection = document.getElementById('tests');
+      if (testsSection) testsSection.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // ========================================
+  // FOOTER YEAR
+  // ========================================
+  const footerYear = document.getElementById('footerYear');
+  if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+});
